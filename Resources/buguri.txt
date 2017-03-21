@@ -1,0 +1,4 @@
+light objects
+words with textures
+normal mapping
+postprocessing effects

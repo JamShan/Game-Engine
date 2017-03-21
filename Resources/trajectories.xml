@@ -1,0 +1,115 @@
+			<trajectory type="linear" iteration="3" direction="normal">
+			<!-- startPoint e chiar Pos -->
+				<endPoint>
+					<x>.5</x>
+					<y>100.0</y>
+					<z>.0</z>				
+				</endPoint>
+				<speed>10</speed>
+			</trajectory>
+			
+			<trajectory type="line_strip" iteration="10" direction="alternate" >
+				<points> <!-- observatie: puteti considera primul punct din traiectorie sa
+				fie pos-ul obiectului, sau puteti sa nu mai definiti pos pentru obiectele cu
+				traiectorie, pentru a fi mai clar xml-ul -->
+					<point>
+						<x>2</x>
+						<y>7</y>
+						<z>1</z>
+					</point>
+					<point>
+						<x>18</x>
+						<y>3</y>
+						<z>5</z>
+					</point>
+				</points>
+				<speed>10</speed>
+			</trajectory>
+			<trajectory type="line_loop" iteration="10" >
+				<points> <!-- observatie: puteti considera primul punct din traiectorie sa
+				fie pos-ul obiectului, sau puteti sa nu mai definiti pos pentru obiectele cu
+				traiectorie, pentru a fi mai clar xml-ul -->
+					<point>
+						<x>2</x>
+						<y>7</y>
+						<z>1</z>
+					</point>
+					<point>
+						<x>18</x>
+						<y>3</y>
+						<z>5</z>
+					</point>
+				</points>
+				<speed>10</speed>
+			</trajectory>
+			<trajectory type="circle" iteration="infinite" >
+				<radius>100</radius>
+				<rot>
+					<x>0</x>
+					<y>0</y>
+					<z>90</z>
+				</rot>
+				<speed>40</speed>
+			</trajectory> 
+			<!-- fire -->
+		<object id="15">
+			<model>4</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<!-- pentru foc-->
+			<u_DispMax>10</u_DispMax>
+			<name>woman 2 </name><!-- optional -->
+			<textures>
+				<texture id="7" type="2d"> <!-- fire3 -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="4" type="2d"> <!-- displacementMap -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="6" type="2d"> <!-- fire mask -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>

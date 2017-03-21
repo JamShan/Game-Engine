@@ -1,0 +1,1175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sceneManager>
+	<!-- background color-->
+	<backgroundColor>
+		<r>0.0</r>
+		<g>0.0</g>
+		<b>0.0</b>
+	</backgroundColor>
+	<!-- objects -->
+	<objects>
+	    <!-- witch -->
+		<object id="1">
+		
+			<model>15</model>
+			<shader>1</shader>
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Witch</name>
+			<textures>
+				
+			<texture id="20" type="2d">
+					<min_filter>NEAREST</min_filter>
+					<mag_filter>NEAREST</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				
+			</textures>
+			<position>
+				<x>-500</x>
+				<y>500</y>
+				<z>100</z>
+			</position>
+			<rotation>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			
+			<!-- trajectory 
+			<trajectory type="circle" iteration="infinite" >
+				<radius></radius>
+				<rot>
+					<x>0</x>
+					<y>0</y>
+					<z>90</z>
+				</rot>
+				<speed>200</speed>
+			</trajectory> stuff -->
+			
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			<lights>
+				<light>1</light>
+			</lights>
+			<AABBColor>
+				<r>0.0</r>
+				<g>0.0</g>
+				<b>1.0</b>
+			</AABBColor>
+		</object>
+		<!-- croco -->
+		<object id="2">
+			<model>3</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Green croco</name><!-- optional -->
+			<textures>
+				<texture id="2" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			
+			<position><!-- translatia -->
+				<x>20.5</x>
+				<y>300</y>
+				<z>121.22</z>
+			</position>
+			<rotation>
+				<x>0.5</x>
+				<y>180.4</y>
+				<z>1</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!--  trajectory stuff-->
+			<trajectory type="line_strip" iteration="10" direction="alternate" >
+				<points> <!-- observatie: puteti considera primul punct din traiectorie sa
+				fie pos-ul obiectului, sau puteti sa nu mai definiti pos pentru obiectele cu
+				traiectorie, pentru a fi mai clar xml-ul -->
+					<point>
+						<x>400</x>
+						<y>300</y>
+						<z>500</z>
+					</point>
+					<point>
+						<x>18</x>
+						<y>300</y>
+						<z>500</z>
+					</point>
+				</points>
+				<speed>200</speed>
+			</trajectory>
+			<!-- light stuff-->
+			
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>	
+		<!-- terrain-->
+		<object id="3">
+			<shader>4</shader><!-- id shader -->
+			<type>terrain</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Terain</name><!-- optional -->
+			<cells>50</cells>
+			<cellsize>300</cellsize>
+			<heights>
+				<r>300</r>
+				<g>200</g>
+				<b>-30</b>
+			</heights>
+			<textures>
+				<texture id="14" type="2d"><!-- rock -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="3" type="2d"><!-- dirt -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="9" type="2d"><!-- grass -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="16" type="2d"><!-- blend -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+			</textures>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>	
+		<!-- skybox-->
+		<object id="4">
+			<scale>
+				<x>10000.0</x>
+				<y>10000.0</y>
+				<z>10000.0</z>
+			</scale>
+			<model>10</model>
+			<shader>2</shader>
+			<type>skybox</type>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Skybox</name>
+			<textures>
+				<texture id="5" type="cube">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+			</textures>
+			<offsetOY>7400</offsetOY>
+		</object> 
+		<!-- bus -->
+		<object id="5">
+			<model>2</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Bus</name><!-- optional -->
+			<textures>
+				<texture id="1" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>300.5</x>
+				<y>300</y>
+				<z>121.22</z>
+			</position>
+			<rotation>
+				<x>0.5</x>
+				<y>0.4</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- goliath -->
+		<object id="6">
+			<model>5</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Goliath</name><!-- optional -->
+			<textures>
+				<texture id="8" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-300.5</x>
+				<y>300</y>
+				<z>121.22</z>
+			</position>
+			<rotation>
+				<x>0.5</x>
+				<y>0.4</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+			
+		<!-- house -->
+		<object id="7">
+			<model>6</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>House</name><!-- optional -->
+			<textures>
+				<texture id="10" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-4000.5</x>
+				<y>300</y>
+				<z>-10421.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- marine -->
+		<object id="8">
+			<model>7</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Marine</name><!-- optional -->
+			<textures>
+				<texture id="11" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>800.5</x>
+				<y>300</y>
+				<z>-500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>30.0</x>
+				<y>30.0</y>
+				<z>30.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+	<!-- radar -->
+		<object id="9">
+			<model>8</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Radar</name><!-- optional -->
+			<textures>
+				<texture id="13" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>900.5</x>
+				<y>300</y>
+				<z>-500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		</object>
+		<!-- radar -->
+		<object id="10">
+			<model>9</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>SCV</name><!-- optional -->
+			<textures>
+				<texture id="15" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>-500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- Terran command center -->
+		<object id="11">
+			<model>11</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Terran command center</name><!-- optional -->
+			<textures>
+				<texture id="17" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>-1200.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1</specCoef>
+			<diffCoef>1</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- Train-->
+		<object id="12">
+			<model>13</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Train</name><!-- optional -->
+			<textures>
+				<texture id="18" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1200.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- woman 1-->
+		<object id="13">
+			<model>16</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>woman 1</name><!-- optional -->
+			<textures>
+				<texture id="21" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1400.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- woman 2-->
+		<object id="14">
+			<model>17</model><!-- id model -->
+			<shader>1</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>woman 2 </name><!-- optional -->
+			<textures>
+				<texture id="22" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- fire -->
+		<object id="15">
+			<model>4</model><!-- id model -->
+			<shader>5</shader><!-- id shader -->
+			<type>fire</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<!-- pentru foc-->
+			<u_DispMax>0.11</u_DispMax>
+			<name>Fire</name><!-- optional -->
+			<textures>
+				<texture id="7" type="2d"> <!-- fire3 -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				<texture id="4" type="2d"> <!-- displacementMap -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>REPEAT</wrap_s>
+					<wrap_t>REPEAT</wrap_t>
+				</texture>
+				<texture id="6" type="2d"> <!-- fire mask -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>	
+		<!-- total reflexion object(ball) -->
+		<object id="16">
+			<model>1</model><!-- id model -->
+			<shader>6</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>witch</name><!-- optional -->
+			<textures>
+				<texture id="5" type="cube">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>1200</y>
+				<z>1600.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>10.0</x>
+				<y>10.0</y>
+				<z>10.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- partial reflexion witch -->
+		<object id="17">
+			<model>15</model><!-- id model -->
+			<shader>7</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>witch reflected</name><!-- optional -->
+			<textures>
+				<texture id="20" type="2d">
+					<min_filter>NEAREST</min_filter>
+					<mag_filter>NEAREST</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				<texture id="5" type="cube">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+			</textures>
+			<position><!-- translatia -->
+				<x>-1900.5</x>
+				<y>1200</y>
+				<z>1600.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>0.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<!-- diffuse coeficient-->
+			<diffCoef>1.0</diffCoef>
+			<!-- specular coef and power-->
+			<specCoef>1.0</specCoef>
+			<shininess>0.3</shininess>
+			<!-- lights that affect this object -->
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- fire -->
+		<object id="18">
+			<model>4</model><!-- id model -->
+			<shader>5</shader><!-- id shader -->
+			<type>fire</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<!-- pentru foc-->
+			<u_DispMax>0.11</u_DispMax>
+			<name>Fire</name><!-- optional -->
+			<textures>
+				<texture id="7" type="2d"> <!-- fire3 -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				<texture id="4" type="2d"> <!-- displacementMap -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>REPEAT</wrap_s>
+					<wrap_t>REPEAT</wrap_t>
+				</texture>
+				<texture id="6" type="2d"> <!-- fire mask -->
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>CLAMP_TO_EDGE</wrap_s>
+					<wrap_t>CLAMP_TO_EDGE</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>-1000.5</x>
+				<y>300</y>
+				<z>1500.22</z>
+			</position>
+			<rotation>
+				<x>0.0</x>
+				<y>180.0</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>100.0</x>
+				<y>100.0</y>
+				<z>100.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		<!-- bus with normal mapping-->
+		<object id="19">
+			<model>2</model><!-- id model -->
+			<shader>8</shader><!-- id shader -->
+			<type>normal</type>
+			<wired>normal</wired>
+			<depthTest>true</depthTest>
+			<blend>true</blend>
+			<name>Bus</name><!-- optional -->
+			<textures>
+				<texture id="1" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				<texture id="12" type="2d">
+					<min_filter>LINEAR</min_filter>
+					<mag_filter>LINEAR</mag_filter>
+					<wrap_s>GL_REPEAT</wrap_s>
+					<wrap_t>GL_REPEAT</wrap_t>
+				</texture>
+				
+				
+			</textures>
+			<position><!-- translatia -->
+				<x>1.5</x>
+				<y>300</y>
+				<z>1121.22</z>
+			</position>
+			<rotation>
+				<x>0.5</x>
+				<y>0.4</y>
+				<z>0</z>
+			</rotation>
+			<scale>
+				<x>1.0</x>
+				<y>1.0</y>
+				<z>1.0</z>
+			</scale>
+			<selfRotateSpeed>0.1</selfRotateSpeed>
+			<followingCamera>
+				<cameras>
+					<camera>1</camera>
+				</cameras>
+				<ox/>
+				<oy/>
+				<oz/>
+			</followingCamera>
+			<!-- light stuff-->
+			<specCoef>1.0</specCoef>
+			<diffCoef>1.0</diffCoef>
+			
+			<lights>
+				<light>1</light>
+			</lights>
+		
+		</object>
+		</objects>
+	<normalLength>10</normalLength>
+	<normalColor>
+		<r>0</r>
+		<g>1</g>
+		<b>0</b>
+	</normalColor>
+	<!-- cameras -->
+	<cameras main="1">
+		<camera id="1">
+			<position><!-- position must be close to target otherwise we have deformation -->
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</position>
+			<target>
+				<x>0</x>
+				<y>0</y>
+				<z>-1</z>
+			</target>
+			<up>
+				<x>0</x>
+				<y>1</y>
+				<z>0</z>
+			</up>
+			<translationSpeed>1800</translationSpeed>
+			<rotationSpeed>100</rotationSpeed>
+			<fov>45</fov>
+			<near>0.2</near>
+			<far>30000</far>
+		</camera>
+		<!-- eventul si alte cameras -->
+	</cameras>
+	
+	<!-- ambiental light -->
+	<ambientalLight>
+		<color>
+			<r>1.0</r>
+			<g>1.0</g>
+			<b>1.0</b>
+		</color>
+		<ratio>0.2</ratio>
+	</ambientalLight>
+	
+	<!-- lights-->
+	<lights>
+		<light id="1">
+			<!-- another type is point where we have also have a float -->
+			<type>directional</type>
+			<!-- asociated object  // for example if is type directional we have a line, type point we have s phere,type spot we have a cone-->
+			<associatedObject>2</associatedObject>
+			<diffuseColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</diffuseColor>
+			<specularColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</specularColor>
+			<direction>
+				<x>0</x>
+				<y>0</y>
+				<z>-1</z>
+			</direction>
+			<shininess>5</shininess>
+		</light>
+		<light id="2">
+			<type>point</type>
+			<!-- asociated object  // for example if is type directional we have a line, type point we have sphere,type spot we have a cone-->
+			<associatedObject>2</associatedObject>
+			<diffuseColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</diffuseColor>
+			<specularColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</specularColor>
+			<position>
+				<x>0</x>
+				<y>200</y>
+				<z>-1</z>
+			</position>
+			<shininess>5</shininess>
+		</light>
+	</lights>
+	
+	<!-- fog data -->
+	<fog>
+		<color>
+			<r>0.23</r>
+			<g>0.26</g>
+			<b>0.33</b>
+		</color>
+		<begin>3050</begin>
+		<end>5000</end>
+	</fog>
+	
+	<!-- debug settings -->
+	<debugSettings>
+		<objectAxes>
+			<OXColor>
+				<r>1.0</r>
+				<g>0.0</g>
+				<b>0.0</b>
+			</OXColor>
+			<OYColor>
+				<r>0.0</r>
+				<g>1.0</g>
+				<b>0.0</b>
+			</OYColor>
+			<OZColor>
+				<r>0.0</r>
+				<g>0.0</g>
+				<b>1.0</b>
+			</OZColor>
+		</objectAxes>
+		<camAxes>
+			<OXColor>
+				<r>1.0</r>
+				<g>1.0</g>
+				<b>0.0</b>
+			</OXColor>
+			<OYColor>
+				<r>0.0</r>
+				<g>1.0</g>
+				<b>1.0</b>
+			</OYColor>
+			<OZColor>
+				<r>1.0</r>
+				<g>0.0</g>
+				<b>1.0</b>
+			</OZColor>
+		</camAxes>
+	</debugSettings>
+	
+</sceneManager>

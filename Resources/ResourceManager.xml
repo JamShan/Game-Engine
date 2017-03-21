@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resourceManager>
+	<models>
+		<model id="1">
+			<path>Resources/Models/Bila.nfg</path>
+		</model>
+		<model id="2">
+			<path>Resources/Models/bus.nfg</path>
+		</model>
+		<model id="3">
+			<path>Resources/Models/Croco.nfg</path>
+		</model>
+		<model id="4">
+			<path>Resources/Models/fire.nfg</path>
+		</model>
+		<model id="5">
+			<path>Resources/Models/Goliath.nfg</path>
+		</model>
+		<model id="6">
+			<path>Resources/Models/House.nfg</path>
+		</model>
+		<model id="7">
+			<path>Resources/Models/Marine.nfg</path>
+		</model>
+		<model id="8">
+			<path>Resources/Models/Radar.nfg</path>
+		</model>
+		<model id="9">
+			<path>Resources/Models/SCV.nfg</path>
+		</model>
+		<model id="10">
+			<path>Resources/Models/SkyBox.nfg</path>
+		</model>
+		<model id="11">
+			<path>Resources/Models/Teran_Command_Center.nfg</path>
+		</model>
+		<model id="12">
+			<path>Resources/Models/Terrain.nfg</path>
+		</model>
+		<model id="13">
+			<path>Resources/Models/train.nfg</path>
+		</model>
+		<model id="14">
+			<path>Resources/Models/water.nfg</path>
+		</model>
+		<model id="15">
+			<path>Resources/Models/witch.nfg</path>
+		</model>
+		<model id="16">
+			<path>Resources/Models/Woman1.nfg</path>
+		</model>
+		<model id="17">
+			<path>Resources/Models/Woman2.nfg</path>
+		</model>
+		<!-- si aici se adauga toate modelele -->
+	</models>
+	<shaders>
+		
+		<shader id="1"><!-- generic shader for objects -->
+			<vs>Resources/Shaders/GenericVS.vs</vs>
+			<fs>Resources/Shaders/GenericFS.fs</fs>
+		</shader>
+		<shader id="2"> <!-- skybox shader-->
+			<vs>Resources/Shaders/SkyboxVS.vs</vs>
+			<fs>Resources/Shaders/SkyboxFS.fs</fs>
+		</shader>
+		<shader id="3"> <!-- axes shader-->
+			<vs>Resources/Shaders/AxesVS.vs</vs>
+			<fs>Resources/Shaders/AxesFS.fs</fs>
+		</shader>
+		<shader id="4"><!-- terrain shader-->
+			<vs>Resources/Shaders/TerrainVS.vs</vs>
+			<fs>Resources/Shaders/TerrainFS.fs</fs>
+		</shader>
+		<shader id="5"><!-- fire shader-->
+			<vs>Resources/Shaders/FireVS.vs</vs>
+			<fs>Resources/Shaders/FireFS.fs</fs>
+		</shader>
+		<shader id="6"><!-- total reflex -->
+			<vs>Resources/Shaders/TotalReflexVS.vs</vs>
+			<fs>Resources/Shaders/TotalReflexFS.fs</fs>
+		</shader>
+		<shader id="7"><!-- reflexion of an object already having a texture-->
+			<vs>Resources/Shaders/TextureReflexVS.vs</vs>
+			<fs>Resources/Shaders/TextureReflexFS.fs</fs>
+		</shader>
+		<shader id="8"><!-- normal mapping so an object can look more real with more depth-->
+			<vs>Resources/Shaders/NormalMappingVs.vs</vs>
+			<fs>Resources/Shaders/NormalMappingFS.fs</fs>
+		</shader>
+		<!-- si aici se adauga toate shaderele -->
+	</shaders>
+	<textures>
+		<texture id="1">
+			<path>Resources/Textures/Bus.tga </path>
+		</texture>
+		<texture id="2">
+			<path>Resources/Textures/Croco.tga </path>
+		</texture>
+		<texture id="3">
+			<path>Resources/Textures/Dirt.tga </path>
+		</texture>
+		<texture id="4">
+			<path>Resources/Textures/DisplacementMap.tga </path>
+		</texture>
+		<texture id="5">
+			<path>Resources/Textures/envMap.tga</path>
+		</texture>
+		<texture id="6">
+			<path>Resources/Textures/fire_mask_inv.tga</path>
+		</texture>
+		<texture id="7">
+			<path>Resources/Textures/fire3.tga </path>
+		</texture>
+		<texture id="8">
+			<path>Resources/Textures/Golitah.tga </path>
+		</texture>
+		<texture id="9">
+			<path>Resources/Textures/Grass.tga </path>
+		</texture>
+		<texture id="10">
+			<path>Resources/Textures/House.tga</path>
+		</texture>
+		<texture id="11">
+			<path>Resources/Textures/Marine.tga</path>
+		</texture>
+		<texture id="12">
+			<path>Resources/Textures/NormalMap.tga</path>
+		</texture>
+		<texture id="13">
+			<path>Resources/Textures/radar.tga</path>
+		</texture>
+		<texture id="14">
+			<path>Resources/Textures/Rock.tga</path>
+		</texture>
+		<texture id="15">
+			<path>Resources/Textures/SCV.tga</path>
+		</texture>
+		<texture id="16">
+			<path>Resources/Textures/Terrain_blend_map.tga</path>
+		</texture>
+		<texture id="17">
+			<path>Resources/Textures/Terran_Command_Center.tga</path>
+		</texture>
+		<texture id="18">
+			<path>Resources/Textures/Train.tga</path>
+		</texture>
+		<texture id="19">
+			<path>Resources/Textures/WaterNormal.tga</path>
+		</texture>
+		<texture id="20">
+			<path>Resources/Textures/Witch.tga</path>
+		</texture>
+		<texture id="21">
+			<path>Resources/Textures/Woman1.tga</path>
+		</texture>
+		<texture id="22">
+			<path>Resources/Textures/Woman2.tga</path>
+		</texture>
+		
+		<!-- si aici se adauga toate texturile -->
+	</textures>	
+	<sounds>
+		<sound id="1">Resources/Sounds/hapciu.wav</sound>
+		<sound id="2">Resources/Sounds/toc.wav</sound>
+		<sound id="3">Resources/Sounds/collision.wav</sound>
+	</sounds>
+</resourceManager>

@@ -36,6 +36,7 @@ GLint Shaders::Init(GLchar * fileVertexShader, GLchar * fileFragmentShader)
 	u_wired = glGetUniformLocation(program, "u_wired");
 	u_MVP = glGetUniformLocation(program, "u_MVP");				
 	u_texture = glGetUniformLocation(program, "u_texture");
+	u_texture2 = glGetUniformLocation(program, "u_texture2");
 	u_normalMapTex = glGetUniformLocation(program, "u_NormalMapTexture");
 	// skybox uniform
 	u_cub_texture = glGetUniformLocation(program, "u_cube_texture");
@@ -50,10 +51,10 @@ GLint Shaders::Init(GLchar * fileVertexShader, GLchar * fileFragmentShader)
 
 	// terrain uniforms
 	u_height = glGetUniformLocation(program, "u_height");
-	u_blendTex = glGetUniformLocation(program, "u_tex_blend");
-	u_grassTex= glGetUniformLocation(program, "u_tex_grass");
-	u_dirtTex = glGetUniformLocation(program, "u_tex_dirt");
-	u_rockTex = glGetUniformLocation(program, "u_tex_rock");
+	u_terrainTex[0] = glGetUniformLocation(program, "u_tex_rock");
+	u_terrainTex[1] = glGetUniformLocation(program, "u_tex_dirt");
+	u_terrainTex[2] = glGetUniformLocation(program, "u_tex_grass");
+	u_terrainTex[3] = glGetUniformLocation(program, "u_tex_blend");
 	// fire uniforms
 	u_foc[0] = glGetUniformLocation(program, "u_fire");
 	u_foc[1] = glGetUniformLocation(program, "u_disp");

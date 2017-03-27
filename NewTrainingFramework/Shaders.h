@@ -12,6 +12,7 @@ public:
 		viewMatrix,
 		projectionMatrix,
 		u_texture,
+		u_texture2,
 		uvAttribute,
 		u_wired,
 		u_normalMapTex,
@@ -52,7 +53,8 @@ public:
 		// per object data
 		u_specularCoeficient,
 		u_diffuseCoeficient,
-		u_ratio;
+		u_ratio,
+		u_terrainTex[4];
 
 		
 	struct Light

@@ -4,25 +4,15 @@
 #include "HelperFunctions.h"
 #include "SceneManager.h"
 
-GLvoid SceneObject::draw()
-{	
-	
-	// if debug settings is on we draw everything wired and we also draw the debug axes
-	if (SceneManager::getInstance()->debugSettings.on == GL_TRUE)
-		wiredFormat = WiredFormat::Wiredf;
-	else
-		wiredFormat = WiredFormat::Normalf;
-	//we suppose the texture for the object is 2D and we are using just one texture 
-	
-	Shaders sh = shader.get()->getShader();
-	
+GLvoid SceneObject::sendToShader(Shaders &sh)
+{
 	glUseProgram(sh.program);
-	
+
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	// lightss
 	// we now can send light stuff
 	if (lightsId.size() > 4)
-		throw std::string(name + "with id ="+ std::to_string(id)+"has more than 4 lights associated to it");
+		throw std::string(name + "with id =" + std::to_string(id) + "has more than 4 lights associated to it");
 	AmbientalLight amb = SceneManager::getInstance()->getAmbientalLight();
 	if (sh.u_ambientalColor != -1)
 	{
@@ -31,7 +21,7 @@ GLvoid SceneObject::draw()
 
 	if (sh.u_ratio)
 	{
-		glUniform1f(sh.u_ratio,amb.ratio);
+		glUniform1f(sh.u_ratio, amb.ratio);
 	}
 	if (sh.u_diffuseCoeficient)
 	{
@@ -63,12 +53,12 @@ GLvoid SceneObject::draw()
 		}
 		if (sh.u_lights[i].shiness != -1)
 		{
-			
-			glUniform1f(sh.u_lights[i].shiness,l.shiness);
+
+			glUniform1f(sh.u_lights[i].shiness, l.shiness);
 		}
 		if (sh.u_lights[i].Type != -1)
 		{
-			Vector4 type(0.0,0.0,0.0,0.0);
+			Vector4 type(0.0, 0.0, 0.0, 0.0);
 			if (l.type == Light::Type::Directional)
 				type.x = 1.0;
 			else if (l.type == Light::Type::Point)
@@ -77,12 +67,126 @@ GLvoid SceneObject::draw()
 				type.z = 1.0;
 			else if (l.type == Light::Type::Area)
 				type.w = 1.0;
-			glUniform4f(sh.u_lights[i].Type, type.x, type.y, type.z,type.w);
+			glUniform4f(sh.u_lights[i].Type, type.x, type.y, type.z, type.w);
 		}
 	}
 
 	// end light stuff
+	// fog uniforms
+	{
+		Fog fog = SceneManager::getInstance()->getFog();
+		if (sh.u_fog != -1)
+		{
+			glUniform3f(sh.u_fog, fog.color.x, fog.color.y, fog.color.z);
+		}
+		if (sh.u_r_radius != -1)
+		{
+			glUniform1f(sh.u_r_radius, fog.r);
+		}
+		if (sh.u_R_radius != -1)
+		{
+			glUniform1f(sh.u_R_radius, fog.R);
+		}
+		Vector3 posCamera = SceneManager::getInstance()->getMainCamera().get()->getPositon();
+		if (sh.u_cam_coord != -1)
+		{
+			glUniform3f(sh.u_cam_coord, posCamera.x, posCamera.y, posCamera.z);
+		}
+	}
+	if (sh.u_wired != -1)
+	{
+		GLfloat f = (wiredFormat == WiredFormat::Normalf) ? 0.f : 1.f;
+		glUniform1f(sh.u_wired, f);
+	}
+}
+
+GLvoid SceneObject::drawDebug(Matrix& mvp)
+{
+	Shaders sh = model.get()->getAxesShader().get()->getShader();
+
+	glUseProgram(sh.program);
+	//r g b axes
+	glBindBuffer(GL_ARRAY_BUFFER, model->getAxesVBO());
+	// we link the position attribute from  vertex shader
+	if (sh.positionAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.positionAttribute);
+		glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
+	}
+
+	// we link the color attribute from vertex shader
+	if (sh.colorAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.colorAttribute);
+		glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
+	}
+	if (sh.u_MVP != -1)
+	{
+		glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
+	}
+	glDrawArrays(GL_LINES, 0, 6);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	////////////////////////////////////////////////////////////////////////////////
+	// AABB
+	glUseProgram(sh.program);
+	glBindBuffer(GL_ARRAY_BUFFER, model->getAABBVBO());
+	// we link the position attribute from  vertex shader
+	if (sh.positionAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.positionAttribute);
+		glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
+	}
+
+	// we link the color attribute from vertex shader
+	if (sh.colorAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.colorAttribute);
+		glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
+	}
+	if (sh.u_MVP != -1)
+	{
+
+		glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
+	}
+	glDrawArrays(GL_LINES, 0, model.get()->getAABBNumberOfVerticies());
+	////////////////////////////////////////////////////////////////////////////////
+	// normals
+	glUseProgram(sh.program);
+	glBindBuffer(GL_ARRAY_BUFFER, model->getNormalsVBO());
+	// we link the position attribute from  vertex shader
+	if (sh.positionAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.positionAttribute);
+		glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
+	}
+
+	// we link the color attribute from vertex shader
+	if (sh.colorAttribute != -1)
+	{
+		glEnableVertexAttribArray(sh.colorAttribute);
+		glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
+	}
+	if (sh.u_MVP != -1)
+	{
+
+		glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
+	}
+	glDrawArrays(GL_LINES, 0, model->getNormalsNumberOfVerticies());
+}
+
+GLvoid SceneObject::draw()
+{	
 	
+	// if debug settings is on we draw everything wired and we also draw the debug axes
+	if (SceneManager::getInstance()->debugSettings.on == GL_TRUE)
+		wiredFormat = WiredFormat::Wiredf;
+	else
+		wiredFormat = WiredFormat::Normalf;
+	//we suppose the texture for the object is 2D and we are using just one texture 
+	
+	Shaders sh = shader.get()->getShader();
+	glUseProgram(sh.program);
+	sendToShader(sh);
 	////////////////////////////////////////////////////
 	glBindBuffer(GL_ARRAY_BUFFER, model.get()->getNormalVBO()); 
 	
@@ -117,27 +221,7 @@ GLvoid SceneObject::draw()
 		glVertexAttribPointer(sh.a_tgt, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)(4* sizeof(Vector3)));
 	}
 	
-	// fog uniforms
-	{
-		Fog fog = SceneManager::getInstance()->getFog(); 
-		if (sh.u_fog != -1)
-		{
-			glUniform3f(sh.u_fog, fog.color.x, fog.color.y, fog.color.z);
-		}
-		if (sh.u_r_radius != -1)
-		{
-			glUniform1f(sh.u_r_radius, fog.r);
-		}
-		if (sh.u_R_radius != -1)
-		{
-			glUniform1f(sh.u_R_radius, fog.R);
-		}
-		Vector3 posCamera = SceneManager::getInstance()->getMainCamera().get()->getPositon();
-		if (sh.u_cam_coord != -1)
-		{
-			glUniform3f(sh.u_cam_coord, posCamera.x, posCamera.y, posCamera.z);
-		}
-	}
+	
 	
 	// we link the uniform MVP matrix from vertex shader
 	Matrix mvp;
@@ -152,13 +236,6 @@ GLvoid SceneObject::draw()
 	{
 		glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
 	}
-	
-	if (sh.u_wired != -1)
-	{
-		GLfloat f = (wiredFormat == WiredFormat::Normalf) ? 0.f : 1.f;
-		glUniform1f(sh.u_wired,f);
-	}
-	
 	
 	// if we are using a normal texture we enter here
 	if (sh.u_texture != -1&& textures.size()>0)
@@ -238,83 +315,9 @@ GLvoid SceneObject::draw()
 
 		// close the array buffer 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	}
-	// here we draw the debug axes and normals and AABB
-	if (SceneManager::getInstance()->debugSettings.on == GL_TRUE)
-	{
-		sh = model.get()->getAxesShader().get()->getShader();
-
-		glUseProgram(sh.program);
-
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAxesVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2*sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2*sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, 6);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		////////////////////////////////////////////////////////////////////////////////
-		// AABB
-		glUseProgram(sh.program);
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAABBVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, model.get()->getAABBNumberOfVerticies());
-		////////////////////////////////////////////////////////////////////////////////
-		// normals
-		glUseProgram(sh.program);
-		glBindBuffer(GL_ARRAY_BUFFER, model->getNormalsVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-			
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, model->getNormalsNumberOfVerticies());
-		
-	}
+		// here we draw the debug axes and normals and AABB
+		drawDebug(mvp);
+	}		
 }
 
 GLvoid SceneObject::activeTextureUnitWithId(GLuint id)

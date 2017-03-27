@@ -89,7 +89,6 @@ public:
 	GLvoid rotateOz(GLint);			// rotate on Oz axis
 	
 	// ctor /dtor
-	Camera();
 	Camera(
 		Vector3 _position,
 		Vector3 _target,

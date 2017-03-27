@@ -48,6 +48,7 @@ GLvoid FireObject::draw()
 	Shaders sh = shader.get()->getShader();
 
 	glUseProgram(sh.program);
+	sendToShader(sh);
 
 	glBindBuffer(GL_ARRAY_BUFFER, model->getNormalVBO());
 
@@ -63,29 +64,6 @@ GLvoid FireObject::draw()
 	{
 		glEnableVertexAttribArray(sh.uvAttribute);
 		glVertexAttribPointer(sh.uvAttribute, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(5 * sizeof(Vector3)));
-
-	}
-	
-	// fog uniforms
-	{
-		Fog fog = SceneManager::getInstance()->getFog();
-		if (sh.u_fog != -1)
-		{
-			glUniform3f(sh.u_fog, fog.color.x, fog.color.y, fog.color.z);
-		}
-		if (sh.u_r_radius != -1)
-		{
-			glUniform1f(sh.u_r_radius, fog.r);
-		}
-		if (sh.u_R_radius != -1)
-		{
-			glUniform1f(sh.u_R_radius, fog.R);
-		}
-		Vector3 posCamera = SceneManager::getInstance()->getMainCamera().get()->getPositon();
-		if (sh.u_cam_coord != -1)
-		{
-			glUniform3f(sh.u_cam_coord, posCamera.x, posCamera.y, posCamera.z);
-		}
 	}
 	
 	// we link the uniform MVP matrix from vertex shader
@@ -100,12 +78,6 @@ GLvoid FireObject::draw()
 	if (sh.u_MVP != -1)
 	{
 		glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-	}
-
-	if (sh.u_wired != -1)
-	{
-		GLfloat f = (wiredFormat == WiredFormat::Normalf) ? 0.f : 1.f;
-		glUniform1f(sh.u_wired, f);
 	}
 	if (sh.u_Time != -1)
 	{
@@ -127,7 +99,6 @@ GLvoid FireObject::draw()
 	}
 	if (wiredFormat == WiredFormat::Normalf)
 	{
-		
 		// we link the vertex buffer object for the indices
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.get()->getNormalEBO());
 		int erro = glGetError();
@@ -145,9 +116,7 @@ GLvoid FireObject::draw()
 	}
 	else // wired format
 	{
-
 		// we link the vertex buffer object for the indices
-
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, model.get()->getWiredEBO());
 
@@ -160,82 +129,9 @@ GLvoid FireObject::draw()
 
 		// close the array buffer 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	}
-	// here we draw the debug axes
-	if (SceneManager::getInstance()->debugSettings.on == GL_TRUE)
-	{
-		//axes
-		sh = model.get()->getAxesShader().get()->getShader();
-
-		glUseProgram(sh.program);
-
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAxesVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, 6);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		// normals
-		glUseProgram(sh.program);
-		glBindBuffer(GL_ARRAY_BUFFER, model->getNormalsVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, model->getNormalsNumberOfVerticies());
-		////////////////////////////////////////////////////////////////////////////////
-		// AABB
-		glUseProgram(sh.program);
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAABBVBO());
-		// we link the position attribute from  vertex shader
-		if (sh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.positionAttribute);
-			glVertexAttribPointer(sh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (sh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(sh.colorAttribute);
-			glVertexAttribPointer(sh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (sh.u_MVP != -1)
-		{
-
-			glUniformMatrix4fv(sh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, model.get()->getAABBNumberOfVerticies());
-	}
+		// here we draw the debug axes
+		drawDebug(mvp);
+	}	
 }
 
 GLvoid FireObject::update()
@@ -255,7 +151,6 @@ GLvoid FireObject::update()
 	// step 1 S,R (xml)
 	modelMatrix = Rz * Ry * Rx * S * T;
 }
-
 
 FireObject::~FireObject()
 {

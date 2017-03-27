@@ -57,14 +57,15 @@ protected:
 
 	TrajectoryInfo trajectoryInfo; // we assume an object has just one trajectory
 	// conversion from angles to radians
-	double toRadians(double angle)
-	{
-		return angle*PI / 180.0;
-	}
+	double toRadians(double angle) { return angle*PI / 180.0; }
 	// lights ids associated
 	std::vector<GLuint> lightsId;
 	// light coeficients
 	GLfloat diffCoef, specCoef;
+	// send uniforms to shader
+	GLvoid sendToShader(Shaders &sh);
+	// draw debug axes, normal, AABB axes and wirerame mode
+	GLvoid drawDebug(Matrix &);
 public:
 	// an object can have only a shader
 	std::shared_ptr< Shader >shader;

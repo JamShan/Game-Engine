@@ -140,7 +140,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libEGL.lib;libGLESv2.lib;libfmod.lib;libfmodL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libEGL.lib;libGLESv2.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\Lib\ATI;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -215,6 +215,10 @@
     <None Include="..\Resources\Shaders\FireVS.vs" />
     <None Include="..\Resources\Shaders\NormalMappingFS.fs" />
     <None Include="..\Resources\Shaders\NormalMappingVS.vs" />
+    <None Include="..\Resources\Shaders\PostProcessBloom1FS.fs" />
+    <None Include="..\Resources\Shaders\PostProcessBloom2FS.fs" />
+    <None Include="..\Resources\Shaders\PostprocessFS.fs" />
+    <None Include="..\Resources\Shaders\PostprocessVS.vs" />
     <None Include="..\Resources\Shaders\SkyboxFS.fs" />
     <None Include="..\Resources\Shaders\SkyboxVS.vs" />
     <None Include="..\Resources\Shaders\TerrainFS.fs" />

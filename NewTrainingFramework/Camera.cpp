@@ -41,6 +41,7 @@ Camera::Camera(
 	boundingBox.Xmin = boundingBox.Ymin = boundingBox.Zmin = -1;
 
 }
+
 AABB Camera::getAABB()
 {
 	AABB box = boundingBox;
@@ -52,6 +53,7 @@ AABB Camera::getAABB()
 	box.Zmin += position.z;
 	return box;
 }
+
 GLvoid Camera::moveOz(GLint directie)//oz 
 {
 	Vector3 deplasare = -(target - position).Normalize()* dt * moveSpeed * directie;
@@ -62,6 +64,7 @@ GLvoid Camera::moveOz(GLint directie)//oz
 	_1CurStep += abs(deplasare.z);
 	_100CurStep += abs(deplasare.z);
 }
+
 GLvoid Camera::moveOx(GLint directie)
 {
 	Vector4 oz = -(target - position).Normalize();
@@ -73,6 +76,7 @@ GLvoid Camera::moveOx(GLint directie)
 	_1CurStep += abs(ox.x);
 	_100CurStep += abs(ox.x);
 }
+
 GLvoid Camera::moveOy(GLint directie)
 {
 	Vector4 oz = -(target - position).Normalize();
@@ -82,10 +86,12 @@ GLvoid Camera::moveOy(GLint directie)
 	target += oy.toVector3();
 	updateWorldView();
 }
+
 GLfloat Camera::toRadians(GLfloat angle)
 {
 	return angle*PI / 180.0;
 }
+
 GLvoid Camera::rotateOy(GLint directie)
 {
 	Matrix mRotateOY;
@@ -98,6 +104,7 @@ GLvoid Camera::rotateOy(GLint directie)
 	
 	updateWorldView();
 }
+
 GLvoid Camera::rotateOx(GLint directie)
 {
 	Matrix mRotateOx;
@@ -111,6 +118,7 @@ GLvoid Camera::rotateOx(GLint directie)
 	target = (rotatedTarget * worldMatrix).toVector3();
 	updateWorldView();
 }
+
 GLvoid Camera::rotateOz(GLint directie)
 {
 	Matrix mRotateOz;
@@ -122,6 +130,7 @@ GLvoid Camera::rotateOz(GLint directie)
 
 	updateWorldView();
 }
+
 GLvoid Camera::updateWorldView()
 {
 	R.SetZero();
@@ -151,6 +160,7 @@ GLvoid Camera::updateWorldView()
 
 	
 }
+
 Camera::~Camera()
 {
 }

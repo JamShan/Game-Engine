@@ -36,6 +36,7 @@ struct TextureResource
 	TextureResource() {}
 	TextureResource(GLuint _id, std::string _path) : id(_id), path(_path) {}
 };
+// resources that are read from ResourceManager.xml configuration filet
 struct SoundResource
 {
 	GLuint id;
@@ -59,11 +60,13 @@ enum class ObjectType
 	Terrain,
 	Fire
 };
+// wired format or not
 enum WiredFormat
 {
 	Normalf,
 	Wiredf
 };
+// Axis aligned bounding box
 struct AABB
 {
 	GLfloat Xmin, Xmax, Ymin, Ymax, Zmin, Zmax;
@@ -90,6 +93,7 @@ struct Fog
 	Vector3 color;
 	GLfloat r, R;
 };
+// Sounds
 enum Sounds
 {
 	// sound name and id from resource manager

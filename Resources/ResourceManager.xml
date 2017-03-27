@@ -88,6 +88,18 @@
 			<vs>Resources/Shaders/NormalMappingVs.vs</vs>
 			<fs>Resources/Shaders/NormalMappingFS.fs</fs>
 		</shader>
+		<shader id="100"><!--postprocess shader-->
+			<vs>Resources/Shaders/PostprocessVs.vs</vs>
+			<fs>Resources/Shaders/PostprocessFS.fs</fs>
+		</shader>
+		<shader id="101"><!--postprocess shader-->
+			<vs>Resources/Shaders/PostprocessVs.vs</vs>
+			<fs>Resources/Shaders/PostProcessBloom1FS.fs</fs>
+		</shader>
+		<shader id="102"><!--postprocess shader-->
+			<vs>Resources/Shaders/PostprocessVs.vs</vs>
+			<fs>Resources/Shaders/PostProcessBloom2FS.fs</fs>
+		</shader>
 		<!-- si aici se adauga toate shaderele -->
 	</shaders>
 	<textures>

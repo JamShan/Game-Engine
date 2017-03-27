@@ -69,8 +69,6 @@ private:
 	GLfloat normalLength;
 	Vector3 normalColor;
 public:
-	static GLuint ob;
-	
 	// debug axes
 	DebugSettings debugSettings;
 	

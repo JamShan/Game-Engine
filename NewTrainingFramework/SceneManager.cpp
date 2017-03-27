@@ -13,9 +13,7 @@
 #include "ResourceManager.h"
 
 #include "../Utilities/utilities.h"
-// this is just for test
-GLuint SceneManager::ob=0;
-//////////
+
 SceneManager* SceneManager::instance = nullptr;
 
 SceneManager* SceneManager::getInstance()
@@ -668,8 +666,7 @@ GLvoid SceneManager::loadTerrainObject(rapidxml::xml_node<>*& pObject)
 // draw the objects
 GLvoid SceneManager::draw()
 {
-	
-	//objects[SceneManager::ob]->draw();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	// draw the objects
 	for (auto it = objects.begin(); it != objects.end(); ++it)
 		(*it)->draw();

@@ -8,6 +8,7 @@ GLvoid TerrainObject::Init()
 {
 
 }
+
 GLint TerrainObject::sign(GLfloat d)
 {
 	if (d > 0.0000000000) return 1;
@@ -21,80 +22,17 @@ GLvoid TerrainObject::draw()
 	else
 		wiredFormat = WiredFormat::Normalf;
 	// we have 4 textures  3 small textures rock,dirt,grass(in this order loaded in textures map) and a blend map 
-	//shader = ResourceManager::getInstance()->loadShader(4);
+	
 	// we have a proble with shader destructor
 	Shaders sh = shader.get()->getShader();
-	//sh.Init("../Resources/Shaders/TerrainVS.vs", "../Resources/Shaders/TerrainFS.fs");
+
 	glUseProgram(sh.program);
 	
-	
-	if (lightsId.size() > 4)
-		throw std::string(name + "with id =" + std::to_string(id) + "has more than 4 lights associated to it");
-	AmbientalLight amb = SceneManager::getInstance()->getAmbientalLight();
-	if (sh.u_ambientalColor != -1)
-	{
-		glUniform3f(sh.u_ambientalColor, amb.color.x, amb.color.y, amb.color.z);
-	}
-	
-	if (sh.u_ratio)
-	{
-		glUniform1f(sh.u_ratio, amb.ratio);
-	}
-	if (sh.u_diffuseCoeficient)
-	{
-		glUniform1f(sh.u_diffuseCoeficient, diffCoef);
-	}
-	if (sh.u_specularCoeficient)
-	{
-		glUniform1f(sh.u_specularCoeficient, specCoef);
-	}
-	for (int i = 0; i < lightsId.size(); i++)
-	{
-		Light l = *(SceneManager::getInstance()->getLights()[lightsId[i]].get());
-		l.direction.Normalize();
-		if (sh.u_lights[i].diffuseColor != -1)
-		{
-			glUniform3f(sh.u_lights[i].diffuseColor, l.diffuseColor.x, l.diffuseColor.y, l.diffuseColor.z);
-		}
-		if (sh.u_lights[i].specularColor != -1)
-		{
-			glUniform3f(sh.u_lights[i].specularColor, l.specularColor.x, l.specularColor.y, l.specularColor.z);
-		}
-		if (sh.u_lights[i].direction != -1)
-		{
-			glUniform3f(sh.u_lights[i].direction, l.direction.x, l.direction.y, l.direction.z);
-		}
-		if (sh.u_lights[i].position != -1)
-		{
-			glUniform3f(sh.u_lights[i].position, l.position.x, l.position.y, l.position.z);
-		}
-		if (sh.u_lights[i].shiness != -1)
-		{
-
-			glUniform1f(sh.u_lights[i].shiness, l.shiness);
-		}
-		if (sh.u_lights[i].Type != -1)
-		{
-			Vector4 type(0.0, 0.0, 0.0, 0.0);
-			if (l.type == Light::Type::Directional)
-				type.x = 1.0;
-			else if (l.type == Light::Type::Point)
-				type.y = 1.0;
-			else if (l.type == Light::Type::Spot)
-				type.z = 1.0;
-			else if (l.type == Light::Type::Area)
-				type.w = 1.0;
-			glUniform4f(sh.u_lights[i].Type, type.x, type.y, type.z, type.w);
-		}
-	}
+	sendToShader(sh);
 	
 	// end light stuff
 	glBindBuffer(GL_ARRAY_BUFFER, model.get()->getNormalVBO());
 
-
-	/////////////////////////////////////////////////////
-	
-	
 
 	// we link the position attribute from  vertex shader
 	if (sh.positionAttribute != -1)
@@ -123,24 +61,8 @@ GLvoid TerrainObject::draw()
 	{
 		glUniform3f(sh.u_height, height.x, height.y, height.z);
 	}
-	Fog fog = SceneManager::getInstance()->getFog();
-	if (sh.u_fog != -1)
-	{
-		glUniform3f(sh.u_fog, fog.color.x, fog.color.y, fog.color.z);
-	}
-	if (sh.u_r_radius != -1)
-	{
-		glUniform1f(sh.u_r_radius, fog.r);
-	}
-	if (sh.u_R_radius != -1)
-	{
-		glUniform1f(sh.u_R_radius, fog.R);
-	}
-	if (sh.u_wired != -1)
-	{
-		GLfloat f = (wiredFormat == WiredFormat::Normalf) ? 0.f : 1.f;
-		glUniform1f(sh.u_wired, f);
-	}
+
+
 	// we link the uniform MVP matrix from vertex shader
 	// model view projection matrix
 	Matrix mvp;
@@ -183,39 +105,18 @@ GLvoid TerrainObject::draw()
 	}
 	
 	// we active the texture we are working with rock,dirt,grass in this order because we also have rock,dirt,grass in scene manager xml
-
-	auto texture = textures.begin();
-	int id = texture->get()->getTextureId();
-	activeTextureUnitWithId(0);
-	glBindTexture(GL_TEXTURE_2D, texture->get()->getTextureVboId());
-	if (sh.u_rockTex != -1)
 	{
-		glUniform1i(sh.u_rockTex, 0);
-	}
-	texture++;
-	id = texture->get()->getTextureId();
-	activeTextureUnitWithId(1);
-	glBindTexture(GL_TEXTURE_2D, texture->get()->getTextureVboId());
-	if (sh.u_dirtTex != -1)
-	{
-		glUniform1i(sh.u_dirtTex, 1);
-	}
-	texture++;
-	id = texture->get()->getTextureId();
-	activeTextureUnitWithId(2);
-	glBindTexture(GL_TEXTURE_2D, texture->get()->getTextureVboId());
-	if (sh.u_grassTex != -1)
-	{
-		glUniform1i(sh.u_grassTex, 2);
-	}
-	
-	texture++;
-	id = texture->get()->getTextureId();
-	activeTextureUnitWithId(3);
-	glBindTexture(GL_TEXTURE_2D, texture->get()->getTextureVboId());
-	if (sh.u_blendTex != -1)
-	{
-		glUniform1i(sh.u_blendTex, 3);
+		int id = 0;
+		for (auto &texture : textures)
+		{
+			activeTextureUnitWithId(id);
+			glBindTexture(GL_TEXTURE_2D, texture.get()->getTextureVboId());
+			if (sh.u_terrainTex[id] != -1)
+			{
+				glUniform1i(sh.u_terrainTex[id], id);
+			}
+			id++;
+		}
 	}
 	// we link the vertex buffer object for the indices
 
@@ -237,56 +138,7 @@ GLvoid TerrainObject::draw()
 	glBindTexture(GL_TEXTURE_2D, 0);
 	// here we draw the debug axes
 	if (SceneManager::getInstance()->debugSettings.on == GL_TRUE)
-	{
-		Shaders osh = model.get()->getAxesShader().get()->getShader();
-
-		glUseProgram(osh.program);
-
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAxesVBO());
-		// we link the position attribute from  vertex shader
-		if (osh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(osh.positionAttribute);
-			glVertexAttribPointer(osh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (osh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(osh.colorAttribute);
-			glVertexAttribPointer(osh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (osh.u_MVP != -1)
-		{
-			glUniformMatrix4fv(osh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, 6);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		////////////////////////////////////////////////////////////////////////////////
-		// AABB
-		glUseProgram(osh.program);
-		glBindBuffer(GL_ARRAY_BUFFER, model->getAABBVBO());
-		// we link the position attribute from  vertex shader
-		if (osh.positionAttribute != -1)
-		{
-			glEnableVertexAttribArray(osh.positionAttribute);
-			glVertexAttribPointer(osh.positionAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), 0);
-		}
-
-		// we link the color attribute from vertex shader
-		if (osh.colorAttribute != -1)
-		{
-			glEnableVertexAttribArray(osh.colorAttribute);
-			glVertexAttribPointer(osh.colorAttribute, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(Vector3), (void*)sizeof(Vector3));
-		}
-		if (osh.u_MVP != -1)
-		{
-
-			glUniformMatrix4fv(osh.u_MVP, 1, GL_FALSE, (GLfloat*)mvp.m);
-		}
-		glDrawArrays(GL_LINES, 0, model.get()->getAABBNumberOfVerticies());
-
-	}
+		drawDebug(mvp);
 }
 
 GLvoid TerrainObject::update()

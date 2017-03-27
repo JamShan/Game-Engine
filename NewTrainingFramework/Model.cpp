@@ -25,11 +25,8 @@ GLvoid Model::updateTexture(GLfloat dx, GLfloat dy)
 			data[index].uvlarge.y += dy;
 			index++;
 		}
-	
-	//glGenBuffers(1, &vvboId);
 	glBindBuffer(GL_ARRAY_BUFFER, vvboId);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, data.size() * sizeof(Vertexnou), data.data());
-	//glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(Vertexnou), data.data(), GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
@@ -394,7 +391,6 @@ void Model::parseNFG(std::string fileName, std::vector<std::unique_ptr<Vertex>> 
 		parseIndiciesLine(line, ind);
 	}
 }
-
 
 Model::Model()
 {

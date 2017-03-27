@@ -2,7 +2,7 @@
 
  * ### Description
   
-   #### This repository contains the source code for a 3D Game Engine written in C++ using OpenGL ES . This Engine was realised during the Workshop organized by Gameloft. The worshop started on 15.10.2016 with the duration of 1 semester and was hosted at Politehnica University of Bucharest.
+   #### This repository contains the source code for a 3D Game Engine written in C++ using OpenGL ES . This Engine was made during a workshop organized by Gameloft. The workshop started on 15.10.2016 with the duration of 1 semester and was hosted at University Politehnica of Bucharest.
  
  * ### Bug Reporting
    

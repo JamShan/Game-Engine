@@ -35,16 +35,18 @@
       * #### [C++ Concurrency in Action: Practical Multithreading](https://www.amazon.com/C-Concurrency-Action-Practical-Multithreading/dp/1933988770/ref=sr_1_sc_1?s=books&ie=UTF8&qid=1479600079&sr=1-1-spell&keywords=Concurency+in+action)
  * #### Features
      * #### Infinite terrain generation in XoZ plane 
+     * #### Model loading for .nfg extension
+     * #### Camera so we can move around X,Y,Z axes or into them
      * #### Trajectories for objects (Linear, Loop, LineStrip and Circle)
      * #### Fog
      * #### Skybox
      * #### AABB collision
      * #### Sounds with FMOD library
      * #### Fire
-     * #### Skybox partial and full reflexion of objects
-     * #### Postprocessing effects such as (blurr,greyscale,sharpen and any kind of postprocessing effect that has a convolution matrix of 3x3)
+     * #### Partial or full skybox reflexion for objects
+     * #### Postprocessing effects such as (blurr, greyscale, sharpen and any kind of postprocessing effect that has a convolution matrix of 3x3)
      * #### Multiple lights creation (currently we can have maximum 4, and they are point and directional)
-     * #### Model loading using custom .nfg extension
+     * #### Debug mode to help so find bugs (normals, wireframe, rgb axes, camera axes and AABB axes)
      
      
       

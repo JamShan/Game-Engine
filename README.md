@@ -48,6 +48,7 @@
      * #### Multiple lights creation (currently we can have maximum 4, and they are point and directional)
      * #### Debug mode to help us at finding bugs (normals, wireframe, rgb axes, camera axes and AABB axes)
      * #### Normal mapping for objects
+     * #### Scene and resource managment using .xml files 
      
      
       

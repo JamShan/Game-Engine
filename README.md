@@ -47,6 +47,7 @@
      * #### Postprocessing effects such as (blurr, greyscale, sharpen and any kind of postprocessing effect that has a convolution matrix of 3x3)
      * #### Multiple lights creation (currently we can have maximum 4, and they are point and directional)
      * #### Debug mode to help so find bugs (normals, wireframe, rgb axes, camera axes and AABB axes)
+     * #### Normal mapping for objects
      
      
       

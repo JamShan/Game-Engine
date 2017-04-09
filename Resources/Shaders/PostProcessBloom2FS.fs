@@ -78,6 +78,6 @@ void main()
     vec4 grey =  convolution(step);
     // and the result is the addition
     vec3 rez = vec3(norm+grey);
-    gl_FragColor = norm;//vec4(rez,1.0);
+    gl_FragColor = vec4(rez,1.0);
     
 }
